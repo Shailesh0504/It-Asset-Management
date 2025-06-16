@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Asset Report{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Asset Report</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard.index') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('report.index') }}">Reports</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Asset Report</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-auto">
+        <a href="{{ url_for('report.export_assets') }}" class="btn btn-success">Export to Excel</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Asset Tag</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Model</th>
+                        <th>Serial Number</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>Purchase Date</th>
+                        <th>Warranty Expiry</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td>{{ asset.asset_tag }}</td>
+                        <td>{{ asset.name }}</td>
+                        <td>{{ asset.category }}</td>
+                        <td>{{ asset.model }}</td>
+                        <td>{{ asset.serial_number }}</td>
+                        <td>
+                            <span class="badge bg-{{ asset.status|lower }}">{{ asset.status }}</span>
+                        </td>
+                        <td>{{ asset.location }}</td>
+                        <td>{{ asset.purchase_date.strftime('%Y-%m-%d') if asset.purchase_date else 'N/A' }}</td>
+                        <td>{{ asset.warranty_expiry.strftime('%Y-%m-%d') if asset.warranty_expiry else 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

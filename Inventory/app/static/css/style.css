@@ -1,0 +1,79 @@
+/* Custom styles for IT Asset Portal */
+
+/* General styles */
+body {
+    padding-top: 20px;
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+/* Table styles */
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.invalid-feedback {
+    display: block;
+}
+
+/* Navbar styles */
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+/* Dashboard card styles */
+.card-primary {
+    background-color: #007bff;
+}
+
+.card-success {
+    background-color: #28a745;
+}
+
+.card-info {
+    background-color: #17a2b8;
+}
+
+/* Button styles */
+.btn-action {
+    margin-right: 5px;
+}
+
+/* Asset status badges */
+.badge-available {
+    background-color: #28a745;
+}
+
+.badge-assigned {
+    background-color: #007bff;
+}
+
+.badge-maintenance {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-retired {
+    background-color: #6c757d;
+}
+
+.badge-lost {
+    background-color: #dc3545;
+}

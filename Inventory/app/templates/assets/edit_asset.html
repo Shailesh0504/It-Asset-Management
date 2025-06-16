@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Asset - {{ asset.asset_tag }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Edit Asset</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard.index') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('asset.list_assets') }}">Assets</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('asset.view_asset', asset_id=asset.id) }}">{{ asset.asset_tag }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('asset.edit_asset', asset_id=asset.id) }}">
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{ form.asset_tag.label(class="form-label") }}
+                        {{ form.asset_tag(class="form-control") }}
+                        {% for error in form.asset_tag.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control") }}
+                        {% for error in form.name.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.category.label(class="form-label") }}
+                        {{ form.category(class="form-select") }}
+                        {% for error in form.category.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{ form.status.label(class="form-label") }}
+                        {{ form.status(class="form-select") }}
+                        {% for error in form.status.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.location.label(class="form-label") }}
+                        {{ form.location(class="form-control") }}
+                        {% for error in form.location.errors %}
+                        <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                {{ form.notes.label(class="form-label") }}
+                {{ form.notes(class="form-control", rows="3") }}
+                {% for error in form.notes.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+                {% endfor %}
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('asset.view_asset', asset_id=asset.id) }}" class="btn btn-secondary me-md-2">Cancel</a>
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

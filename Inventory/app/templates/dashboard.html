@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Dashboard</h1>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Total Assets</h5>
+                <p class="card-text display-4">{{ total_assets }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Available Assets</h5>
+                <p class="card-text display-4">{{ available_assets }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <p class="card-text display-4">{{ total_users }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Recent Transactions</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Asset</th>
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in recent_transactions %}
+                    <tr>
+                        <td>{{ transaction.transaction_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ transaction.asset.asset_tag }}</td>
+                        <td>{{ transaction.user.username }}</td>
+                        <td>{{ transaction.transaction_type }}</td>
+                        <td>{{ transaction.notes|truncate(30) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

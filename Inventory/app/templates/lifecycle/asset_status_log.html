@@ -1,0 +1,24 @@
+@bp.route('/assets/<int:asset_id>/status-history/export')
+@login_required
+def export_asset_status_history(asset_id):
+    asset = Asset.query.get_or_404(asset_id)
+    status_events = Lifecycle.query.filter(
+        Lifecycle.asset_id == asset_id,
+        Lifecycle.event_type == 'Status Change'
+    ).order_by(Lifecycle.event_date.desc()).all()
+    
+    report_data = [{
+        'Date': event.event_date.strftime('%Y-%m-%d %H:%M'),
+        'Previous Status': event.description.split(' from ')[1].split(' to ')[0] 
+                          if ' from ' in event.description else 'N/A',
+        'New Status': event.description.split(' to ')[1] 
+                     if ' to ' in event.description else 'N/A',
+        'Changed By': User.query.get(event.user_id).username if event.user_id else 'System',
+        'Notes': event.notes or ''
+    } for event in status_events]
+    
+    return ReportBuilder.send_excel_response(
+        report_data,
+        filename=f"status_history_{asset.asset_tag}.xlsx",
+        sheet_name='Status History'
+    )

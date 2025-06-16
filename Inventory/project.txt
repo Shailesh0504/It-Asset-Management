@@ -1,0 +1,147 @@
+it_asset_portal/
+
+│
+
+├── run.py                          # App starter file
+
+├── config.py                       # DB path, secret key, etc.
+
+├── requirements.txt                # Required libraries
+
+├── README.md                       # Project info
+
+ 
+
+├── database/
+
+│   ├── it_assets.db                # SQLite DB file (auto-generated)
+
+│   └── .gitignore                  # Ignore .db file in version control
+
+ 
+
+├── migrations/                     # Flask-Migrate schema history
+
+ 
+
+├── app/
+
+│   ├── __init__.py                 # Flask app init + blueprint register
+
+ 
+
+│   ├── models/
+
+│   │   ├── __init__.py
+
+│ │ ├── asset.py                # Asset model
+
+│ │ ├── user.py                 # User model
+
+│ │ ├── lifecycle.py            # Asset lifecycle model
+
+│ │ └── transaction.py          # Asset transaction history
+
+ 
+
+│   ├── routes/
+
+│   │   ├── __init__.py
+
+│ │ ├── auth_routes.py          # Login, logout
+
+│ │ ├── dashboard_routes.py     # Card-based dashboard (no chart)
+
+│ │ ├── asset_routes.py         # CRUD for assets
+
+│ │ ├── report_routes.py        # Reports and exports
+
+│ │ └── user_routes.py          # User management
+
+ 
+
+│   ├── templates/
+
+│   │   ├── base.html               # Layout template
+
+│   │   ├── login.html
+
+│   │   ├── dashboard.html
+
+│   │   ├── assets/
+
+│   │   │   ├── add_asset.html
+
+│   │   │   ├── view_asset.html
+
+│   │   │   ├── edit_asset.html
+
+│   │   │   └── assign_asset.html
+
+│   │   ├── users/
+
+│   │   │   ├── list_users.html
+
+│   │   │   ├── add_user.html
+
+│   │   │   └── edit_user.html
+
+│   │   ├── reports/
+
+│   │   │   ├── report_dashboard.html
+
+│   │   │   └── report_detail.html
+
+│   │   └── lifecycle/
+
+│   │       ├── asset_timeline.html
+
+│   │       └── asset_status_log.html
+
+ 
+
+│   ├── static/
+
+│   │   ├── css/
+
+│   │   │   └── style.css           # Bootstrap + custom styles
+
+│   │   ├── js/
+
+│   │   │   └── form_validations.js
+
+│   │   └── images/
+
+│   │       └── logo.png
+
+ 
+
+│   ├── utils/
+
+│   │   ├── __init__.py
+
+│ │ ├── decorators.py           # Role-based access control
+
+│ │ ├── auth_helpers.py         # Login/session logic
+
+│ │ ├── export_excel.py         # Export to Excel
+
+│ │ ├── import_excel.py         # Bulk import Excel
+
+│ │ ├── report_builder.py       # Generate data for reports
+
+│ │ └── lifecycle_helper.py     # Asset lifecycle management
+
+ 
+
+│   └── forms/
+
+│       ├── __init__.py
+
+│ ├── asset_forms.py
+
+│ ├── login_form.py
+
+│ ├── user_forms.py
+
+│ └── report_filter_form.py

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Asset Timeline - {{ asset.asset_tag }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1>Asset Timeline</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard.index') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('asset.list_assets') }}">Assets</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('asset.view_asset', asset_id=asset.id) }}">{{ asset.asset_tag }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Timeline</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="timeline">
+            {% for event in lifecycle_events %}
+            <div class="timeline-item">
+                <div class="timeline-item-marker">
+                    <div class="timeline-item-marker-indicator bg-{{ 'primary' if event.event_type == 'Assignment' else 'success' if event.event_type == 'Checkin' else 'warning' if event.event_type == 'Maintenance' else 'danger' if event.event_type == 'Retirement' else 'info' }}"></div>
+                </div>
+                <div class="timeline-item-content">
+                    <div class="d-flex justify-content-between">
+                        <h5>{{ event.event_type }}</h5>
+                        <small class="text-muted">{{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</small>
+                    </div>
+                    <p>{{ event.description }}</p>
+                    {% if event.user_id %}
+                    <small>Performed by: {{ event.user.username }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+.timeline {
+    position: relative;
+    padding-left: 1rem;
+    margin: 0 0 0 1rem;
+    border-left: 1px solid #e5e5e5;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.timeline-item-marker {
+    position: absolute;
+    left: -1.5rem;
+}
+
+.timeline-item-marker-indicator {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+    border: 3px solid #fff;
+}
+
+.timeline-item-content {
+    padding-left: 1.5rem;
+}
+</style>
+{% endblock %}
